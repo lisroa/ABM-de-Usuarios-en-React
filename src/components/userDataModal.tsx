@@ -2,17 +2,26 @@ import React from "react";
 import { Button } from "primereact/button";
 import { Settings, Minus } from "lucide-react";
 import Modal from "@/components/modal/Modal";
-import InputIconField from "@/components/Input-Icon-Field/InputIconField";
+import InputTextField from "@/components/input-text-field/InputTextField";
 import SelectInput from "@/components/select-Input/SelectInput";
+
+interface UserData {
+	id: number;
+	usuario: string;
+	estado: string;
+	sector: string;
+}
 
 interface UserDataModalProps {
 	isModalVisible: boolean;
 	closeModal: () => void;
+	selectedUser: UserData | null;
 }
 
 const UserDataModal: React.FC<UserDataModalProps> = ({
 	isModalVisible,
 	closeModal,
+	selectedUser,
 }) => {
 	return (
 		<Modal
@@ -32,11 +41,24 @@ const UserDataModal: React.FC<UserDataModalProps> = ({
 		>
 			<div className="pr-6 pl-6">
 				<p className="text-lg font-semibold mb-2">ID:</p>
-				<InputIconField inputClassName="mb-4" />
+				<InputTextField
+					inputClassName="mb-4"
+					defaultValue={selectedUser?.id?.toString() || ""}
+					placeholder="Ingrese el ID del Usuuario"
+				/>
+				<p className="text-lg font-semibold mb-2">Nombre:</p>
+				<InputTextField
+					inputClassName="mb-4"
+					defaultValue={selectedUser?.usuario?.toString() || ""}
+					placeholder="Ingrese el nombre del Usuario"
+				/>
 				<p className="text-lg font-semibold mb-2">Estado:</p>
-				<SelectInput inputClassName="mb-4" />
+				<SelectInput inputClassName="mb-4" value={selectedUser?.estado || ""} />
 				<p className="text-lg font-semibold mb-2">Sector:</p>
-				<SelectInput inputClassName="mb-4" />
+				<SelectInput
+					inputClassName="mb-4"
+					value={selectedUser?.sector || "2000"}
+				/>
 			</div>
 
 			<div className="flex justify-center gap-4 mt-4">

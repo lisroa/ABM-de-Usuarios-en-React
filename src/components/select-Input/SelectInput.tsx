@@ -5,10 +5,13 @@ interface SelectInputProps {
 	placeholder?: string;
 	icon?: string;
 	onClick?: () => void;
+	value?: string;
 }
+
 const SelectInput: React.FC<SelectInputProps> = ({
 	placeholder,
 	inputClassName,
+	value,
 }) => {
 	return (
 		<CascadeSelect
@@ -17,6 +20,7 @@ const SelectInput: React.FC<SelectInputProps> = ({
 				inputClassName || ""
 			)}
 			placeholder={placeholder}
+			value={value}
 		/>
 	);
 };

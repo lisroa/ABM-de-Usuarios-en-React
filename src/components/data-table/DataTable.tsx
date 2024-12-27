@@ -13,17 +13,13 @@ interface UserData {
 
 interface DataTableProps {
 	data: UserData[];
+	onOpenModal: (userData: UserData) => void;
 }
 
-const DataTableComponent: React.FC<DataTableProps> = ({ data }) => {
-	// Estado para controlar el modal
-	const [isModalVisible, setIsModalVisible] = useState(false);
-
-	// Funciones para abrir y cerrar el modal
-	const openModal = () => setIsModalVisible(true);
-	const closeModal = () => setIsModalVisible(false);
-
-	// Template para la columna de "Usuario"
+const DataTableComponent: React.FC<DataTableProps> = ({
+	data,
+	onOpenModal,
+}) => {
 	const usuarioTemplate = (rowData: UserData) => {
 		return (
 			<a
@@ -31,7 +27,7 @@ const DataTableComponent: React.FC<DataTableProps> = ({ data }) => {
 				className="text-blue-600 underline hover:text-blue-800"
 				onClick={(e) => {
 					e.preventDefault();
-					openModal();
+					onOpenModal(rowData);
 				}}
 			>
 				{rowData.usuario}
@@ -48,10 +44,6 @@ const DataTableComponent: React.FC<DataTableProps> = ({ data }) => {
 
 	return (
 		<div className="p-4 bg-white rounded-md shadow-md">
-			{/* Modal */}
-			<UserDataModal isModalVisible={isModalVisible} closeModal={closeModal} />
-
-			{/* Tabla */}
 			<DataTable
 				value={data}
 				paginator
